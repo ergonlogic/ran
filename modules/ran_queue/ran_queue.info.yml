@@ -1,0 +1,7 @@
+name: 'Rán Queue'
+description: 'Queue system for Aegir: Rán'
+package: 'Aegir: Rán'
+type: module
+core: 8.x
+dependencies:
+  - views

@@ -1,0 +1,44 @@
+<?php
+
+include "vendor/autoload.php";
+
+use Drupal\ran_queue\Task;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ran_queue_node_insert(EntityInterface $entity) {
+  ran_queue_node_update($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function ran_queue_node_update(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node') {
+    if ($entity->hasField('field_ran__description')) {
+      $task = new Task($entity);
+      $result = $task->queue->PostTask('tasks.write_playbook', array(json_encode($task), $task->extra_vars));
+      $result = $task->queue->PostTask('tasks.run_playbook', array(json_encode($task), $task->org, $task->project, $task->type, $task->name));
+    }
+  }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function ran_queue_element_info_alter(array &$types) {
+  if (isset($types['view'])) {
+    // Attach our autorefresh JS to views.
+#    $types['view']['#attached']['library'][] = 'ran_queue/task_log';
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ * TODO: Only attach to our view(s).
+ */
+function ran_queue_page_attachments_alter(array &$page) {
+  $page['#attached']['library'][] = 'ran_queue/task_log';
+}

@@ -1,0 +1,30 @@
+---
+
+- name: Deploy Celery service init script
+  copy:
+    src: celeryd.init
+    dest: /etc/init.d/celeryd
+    mode: 0755
+
+- name: Deploy Celery service config
+  copy:
+    src: celeryd.default
+    dest: /etc/default/celeryd
+
+- name: Ensure Celery PID file is writeable by user
+  file:
+    state: directory
+    path: /var/run/celery/
+    owner: vagrant
+
+- name: Ensure Celery log file is writeable by user
+  file:
+    state: directory
+    path: /var/log/celery/
+    owner: vagrant
+
+- name: Start Celery service
+  service:
+    name: celeryd
+    state: started
+    enabled: yes

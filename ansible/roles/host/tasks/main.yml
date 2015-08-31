@@ -1,0 +1,37 @@
+---
+
+- name: Set or update hostname
+  hostname:
+    name: "{{ ran_hostname }}"
+
+- name: Update /etc/hostname
+  copy:
+    content: "{{ ran_hostname }}"
+    dest: /etc/hostname
+    owner: root
+    group: root
+    force: no
+    mode: 0644
+
+- name: Update /etc/hosts with localhost
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^127.0.0.1 localhost"
+    line: "127.0.0.1 {{ ran_fqdn }} {{ ran_hostname }} localhost"
+
+- name: Set root password
+  user:
+    name: ubuntu
+    password: "{{ root_password }}"
+
+- name: Allow passwords with SSH
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication yes"
+
+- name: Restart ssh
+  service:
+    name: ssh
+    state: restarted
+

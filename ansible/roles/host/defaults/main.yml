@@ -1,0 +1,4 @@
+---
+# TODO: remove this, and add admin users instead. Root SSH access should be
+# disabled. In the mean time, the default is 'sitefactory'
+root_password: "$6$Eujowaj/$/kqvtvXsUuttcLXgOT7R4sCZwOLwfMMdAOMmbvPKOxT6uhCOu2BNA9Th3ITH.nGukV1LFwdWS3JDRfFN6SAPd0"

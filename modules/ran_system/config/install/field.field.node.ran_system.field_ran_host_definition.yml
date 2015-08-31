@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ran_host_definition
+    - node.type.ran_system
+  module:
+    - field_collection
+id: node.ran_system.field_ran_host_definition
+field_name: field_ran_host_definition
+entity_type: node
+bundle: ran_system
+label: 'Host definition'
+description: ''
+required: true
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: field_collection

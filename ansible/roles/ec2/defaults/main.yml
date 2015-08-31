@@ -1,0 +1,6 @@
+---
+image: 'ami-cf35f3a4'
+instance_type: 't2.micro'
+region: 'us-east-1'
+count: 1
+#state: 'present'

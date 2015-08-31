@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.ran_system.field_ran__description
+    - field.field.node.ran_system.field_ran_host_configuration
+    - field.field.node.ran_system.field_ran_host_definition
+    - node.type.ran_system
+  module:
+    - user
+id: node.ran_system.teaser
+targetEntityType: node
+bundle: ran_system
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_ran__description: true
+  field_ran_host_configuration: true
+  field_ran_host_definition: true

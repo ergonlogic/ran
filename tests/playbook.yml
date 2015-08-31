@@ -1,0 +1,87 @@
+---
+- hosts: localhost
+
+  roles:
+  - geerlingguy.drupal
+
+  vars:
+  - drupal_domain: "ran.dev"
+  - drupal_site_name: "ran Dev"
+  # Features doesn't yet work with later versions of D8
+  - drupal_core_version: "8.0.0-beta10"
+  #- drupal_core_path: "/var/www/drupal-{{ drupal_core_version }}-dev"
+
+  pre_tasks:
+
+  - name: Install Sendmail for 'drush si'.
+    apt:
+      name: sendmail
+      update_cache: True
+
+  tasks:
+
+  - name: Disable default Apache vhosts
+    file:
+      state: absent
+      path: "{{ item }}"
+    notify: restart webserver
+    with_items:
+      - /etc/apache2/sites-enabled/000-default.conf
+      - /etc/apache2/sites-enabled/vhosts.conf
+
+  - name: Install Pip
+    apt:
+      name: python-pip
+
+  - name: Install RabbitMQ
+    apt:
+      name: rabbitmq-server
+
+  - name: Install Celery
+    pip:
+      name: celery
+
+  - name: Symlink ran in place for backend
+    file:
+      state: link
+      src: '/vagrant'
+      dest: '/usr/local/share/ran'
+
+  - name: Symlink ran in place for frontend
+    file:
+      state: link
+      src: '/vagrant'
+      dest: "{{ drupal_core_path }}/modules/ran"
+
+  - name: Symlink ran Ansible roles in place
+    file:
+      state: link
+      src: "/vagrant/ansible/roles/{{ item }}"
+      dest: "/etc/ansible/roles/ran.{{ item }}"
+    with_items:
+      # TODO: scan the roles dir, and symlink from that list, instead of having
+      # to add these manually.
+      - base
+      - install
+      - ec2
+
+  - include: ../ansible/roles/install/tasks/main.yml
+
+  - name: Download Features and dependencies.
+    command: "drush make -y --no-core --working-copy --no-gitinfofile /vagrant/tests/ran.make.yml"
+    args:
+      chdir: "{{ drupal_core_path }}"
+      creates: "{{ drupal_core_path }}/modules/config_update"
+      #creates: "{{ drupal_core_path }}/modules/features"
+      #creates: "{{ drupal_core_path }}/modules/field_collection"
+      #TODO: Can the above be globbed? maybe just have the makefile put them
+      #under a common directory and check for that...
+
+  - name: Install Features and dependencies.
+    command: "drush en -y {{ item }}"
+    args:
+      chdir: "{{ drupal_core_path }}"
+    with_items:
+      - features_ui
+      - ran_queue
+      #- ran_system

@@ -1,0 +1,19 @@
+tbody .views-field-task-output {
+  background-color: black !important;
+  border-color: black !important;
+}
+div#task_log_controls {
+  border-color: #666;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 6px;
+  background-color: #bbb;
+  padding: 5px;
+  width: 150px;
+  margin: 20px;
+}
+
+/* Remove progress throbber */
+/* TODO: this is global, but should only be for our task log. We should also be
+ * able to remove it in JS, rather than just hiding it here. */
+div.ajax-progress.ajax-progress-fullscreen { display: none; }

@@ -1,0 +1,23 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Christopher Gervais
+  description: 'Aegir: Rán -- Ansible common host configuration'
+  company: "Ergon Logic Enterprises"
+  license: "GPLv3"
+  min_ansible_version: 1.4
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+  - name: Debian
+    versions:
+    - all
+  categories:
+    - system

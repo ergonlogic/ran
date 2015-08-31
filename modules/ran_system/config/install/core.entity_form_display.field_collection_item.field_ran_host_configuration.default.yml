@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.field_collection_item.field_ran_host_configuration.field_ran__roles
+    - field.field.field_collection_item.field_ran_host_configuration.field_ran_apt_key_url
+    - field.field.field_collection_item.field_ran_host_configuration.field_ran_apt_repos
+    - field.field.field_collection_item.field_ran_host_configuration.field_ran_packages
+    - field_collection.field_collection.field_ran_host_configuration
+id: field_collection_item.field_ran_host_configuration.default
+targetEntityType: field_collection_item
+bundle: field_ran_host_configuration
+mode: default
+content:
+  field_ran__roles:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ran_apt_key_url:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ran_apt_repos:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ran_packages:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden: {  }

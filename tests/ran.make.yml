@@ -1,0 +1,26 @@
+---
+core: 8.x
+api: 2
+
+defaults:
+  projects:
+    type: module
+    download:
+      working-copy: true
+
+projects:
+  field_collection:
+    download:
+      url: 'http://git.drupal.org/sandbox/larowlan/1966232.git'
+      branch: '8.x-1.x'
+      revision: '337e5f40875768dd5a204f7769070f63556a2a3d'
+  config_update:
+    download:
+      url: 'http://git.drupal.org/project/config_update.git'
+      branch: '8.x-1.x'
+      revision: 'ced2ed8a59999ad4a1e09a27ee1968983fd641c7'
+  features:
+    download:
+      url: 'http://git.drupal.org/project/features.git'
+      branch: '8.x-3.x'
+      tag: '8.x-3.0-alpha1'

@@ -1,0 +1,6 @@
+---
+ran_desc: 'Aegir: Rán'
+ran_hosts: localhost
+ran_base_path: /var/ran
+ran_client: root
+ran_project: default

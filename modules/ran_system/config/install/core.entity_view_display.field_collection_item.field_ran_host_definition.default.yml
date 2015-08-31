@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.field_collection_item.field_ran_host_definition.field_ran__system_type
+    - field.field.field_collection_item.field_ran_host_definition.field_ran_aws_access_key
+    - field.field.field_collection_item.field_ran_host_definition.field_ran_aws_secret_key
+    - field.field.field_collection_item.field_ran_host_definition.field_ran_count
+    - field_collection.field_collection.field_ran_host_definition
+id: field_collection_item.field_ran_host_definition.default
+targetEntityType: field_collection_item
+bundle: field_ran_host_definition
+mode: default
+content:
+  field_ran__system_type:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ran_aws_access_key:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ran_aws_secret_key:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ran_count:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+hidden: {  }

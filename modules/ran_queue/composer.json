@@ -1,0 +1,6 @@
+{
+    "require": {
+        "massivescale/celery-php": "dev-master",
+        "sensiolabs/ansi-to-html": "dev-master"
+    }
+}

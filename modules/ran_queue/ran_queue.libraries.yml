@@ -1,0 +1,7 @@
+task_log:
+  version: 1.x
+  js:
+    js/task_log.js: {}
+  css:
+    theme:
+      css/task_log.css: {}

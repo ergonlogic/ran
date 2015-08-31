@@ -1,0 +1,47 @@
+<?php
+
+function ran_queue_schema() {
+  $schema ['ran_queue_task_log'] = array(
+    'description' => 'The base table for task logs.',
+    'fields' => array(
+      'log_id' => array (
+        'type' => 'serial',
+      ),
+      'task_id' => array(
+        'description' => 'The primary identifier for a task.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'task_ref_id' => array(
+        'description' => 'The ID of the entity on which a task is run.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'task_sequence' => array(
+        'description' => 'The sequence of the task output lines.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'task_output' => array(
+        'description' => 'A line of output from a task with ANSI colors converted.',
+        'type' => 'text',
+      ),
+      'task_output_raw' => array(
+        'description' => 'A raw line of output from a task.',
+        'type' => 'text',
+      ),
+      'timestamp' => array(
+        'description' => 'The time that the task output was received.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('log_id'),
+  );
+  return $schema;
+}

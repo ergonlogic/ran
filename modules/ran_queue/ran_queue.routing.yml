@@ -1,0 +1,16 @@
+ran_queue.post_task_log:
+  path: '/ran/queue/post_task_log'
+  defaults:
+    #_controller: 'ran_queue_post'
+    _controller: '\Drupal\ran_queue\TaskLog::post_log'
+    _title: 'Aegir: Rán queue post task log'
+  requirements:
+    _permission: 'access content'
+
+ran_queue.form:
+  path: '/ran/queue/form'
+  defaults:
+    _title: 'Aegir: Rán queue form'
+    _form: '\Drupal\ran_queue\Form\RanQueueForm'
+  requirements:
+    _permission: 'access content'

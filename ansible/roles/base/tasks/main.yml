@@ -1,0 +1,56 @@
+---
+- name: Ensure ran base path exists.
+  file:
+    state: directory
+    path: "{{ ran_base_path }}"
+
+- name: Ensure client directory exists.
+  file:
+    state: directory
+    path: "{{ ran_base_path }}/{{ ran_client }}"
+
+- name: Ensure project directory exists.
+  file:
+    state: directory
+    path: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}"
+
+- name: Ensure project keys directory exists.
+  file:
+    state: directory
+    path: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/ssh_keys"
+
+- name: Ensure top-level playbook exists.
+  copy:
+    content: "---"
+    dest: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/site.yml"
+    force: no
+
+- name: Ensure type directories exist.
+  file:
+    state: directory
+    path: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/{{ ran_type }}"
+
+- name: Ensure type playbooks exist.
+  copy:
+    content: "---"
+    dest: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/{{ ran_type }}/{{ ran_type }}.yml"
+    force: no
+
+- name: Ensure type playbooks are included in top-level playbook.
+  lineinfile:
+    state: present
+    line: "- include: ./{{ ran_type }}/{{ ran_type }}.yml"
+    dest: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/site.yml"
+
+- name: Ensure generated playbook is included in type playbooks.
+  lineinfile:
+    state: present
+    line: "- include: ./{{ ran_name }}.yml"
+    dest: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/{{ ran_type }}/{{ ran_type }}.yml"
+  when: ran_name is defined and ran_type is defined
+
+- name: Generate host-specific playbook.
+  template:
+    src: playbook.yml.j2
+    dest: "{{ ran_base_path }}/{{ ran_client }}/{{ ran_project }}/{{ ran_type }}/{{ ran_name }}.yml"
+  when: ran_name is defined and ran_type is defined

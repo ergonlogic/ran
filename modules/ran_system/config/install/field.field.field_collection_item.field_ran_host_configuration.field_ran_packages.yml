@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.field_collection_item.field_ran_packages
+    - field_collection.field_collection.field_ran_host_configuration
+id: field_collection_item.field_ran_host_configuration.field_ran_packages
+field_name: field_ran_packages
+entity_type: field_collection_item
+bundle: field_ran_host_configuration
+label: Packages
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

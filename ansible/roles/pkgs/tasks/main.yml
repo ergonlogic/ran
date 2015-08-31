@@ -1,0 +1,29 @@
+---
+
+#- name: Install dependencies.
+#  apt:
+#    name: "{{ item }}"
+#    update_cache: yes
+#    cache_valid_time: 60
+#  with_items:
+#  - python-apt
+
+- name: Add Apt keys
+  apt_key:
+    url: "{{ item }}"
+  with_items: apt_key_url
+
+- name: Add Apt repos
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: apt_repos
+
+- name: Ensure packages are installed
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 60
+    force: yes
+  with_items: packages

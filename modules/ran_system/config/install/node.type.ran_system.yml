@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: 'main:'
+name: System
+type: ran_system
+description: 'Create, manage and configure virtual machines on commercial and private clouds.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

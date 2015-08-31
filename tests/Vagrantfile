@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.define :Rán do |a|
+    a.vm.hostname = 'ran.dev'
+    a.vm.network :private_network, ip: '10.42.10.10'
+    a.ssh.insert_key = false
+
+    a.vm.box = 'ubuntu/trusty64'
+
+    a.vm.provision "shell",
+      inline: "curl https://raw.githubusercontent.com/GetValkyrie/ansible-bootstrap/master/install-ansible.sh 2>/dev/null | ANSIBLE_BRANCH=release1.8.4 /bin/sh",
+      keep_color: true
+    a.vm.provision "shell",
+      inline: "PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ansible-galaxy install -r /vagrant/tests/requirements.txt --force --ignore-errors",
+      keep_color: true
+    a.vm.provision "shell",
+      inline: "PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ansible-playbook /vagrant/tests/playbook.yml -i /vagrant/tests/inventory --connection=local --sudo",
+      keep_color: true
+
+    a.vm.provider :virtualbox do |v|
+      v.name = 'Rán (ran.dev)'
+      v.memory = 1024
+      v.cpus = 2
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+    end
+
+  end
+end
